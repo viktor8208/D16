@@ -81,7 +81,7 @@ class UserResponseCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class UserResponseList(LoginRequiredMixin, ListView):
+'''class UserResponseList(LoginRequiredMixin, ListView):
     model = UserResponse
     template_name = 'urlist.html'
     context_object_name = 'ur_list'
@@ -90,7 +90,7 @@ class UserResponseList(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         user_ur = UserResponse.objects.filter(ad=Ad.objects.get(id=self.kwargs.get('pk')))
         context['user_ur'] = user_ur
-        return context
+        return context'''
 
 
 class UserResponseUpdate(LoginRequiredMixin, UpdateView):
