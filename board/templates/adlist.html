@@ -1,0 +1,71 @@
+
+{% extends 'flatpages/default.html' %}
+{% block title %}
+Объявления
+{% endblock title %}
+{% block content %}
+
+{% if ads%}
+    <p ></p>
+    {%for ad in ads%}
+<p ></p>
+<table>
+	<tbody>
+		<tr align="left" style=" font-size: 18px; font-weight: 600;">
+			<td style= height: 21.5781px >   </td>
+		</tr>
+		<tr align="left" style=" font-size: 18px; font-weight: 600;">
+			<td >  Заголовок: {{ad.title}} </td>
+		</tr>
+		<tr align="left" style=" font-size: 18px; font-weight: 600;">
+			<td >  Юзер: {{ad.author.id}} </td>
+		</tr>
+		<tr align="left" style=" font-size: 18px; font-weight: 600;">
+			<td >  Объявление: </td>
+		</tr>
+		<tr align="left" style=" font-size: 18px; ">
+			<td >   {{ad.preview| safe}} </td>
+		</tr>
+
+	</tbody>
+</table>
+
+<table>
+	<tbody>
+		<tr align="left" style=" font-size: 18px; font-weight: 600;">
+			<td style="width: 300px;"> <a href="/ad/{{ad.id}}">Открыть объявление</a> </td>
+
+		</tr>
+	</tbody>
+</table>
+
+ <hr>
+
+
+    {% endfor %}
+{% else %}
+<h2>Объявлений нет!</h2>
+{% endif %}
+
+{% if page_obj.has_previous %}
+<a href="?page=1">1</a>
+{% if page_obj.previous_page_number != 1 %}
+...
+<a href="?page={{ page_obj.previous_page_number }}">{{
+page_obj.previous_page_number }}</a>
+{% endif %}
+{% endif %}
+{# Информация о текущей странице #}
+{{ page_obj.number }}
+{# Информация о следующих страницах #}
+{% if page_obj.has_next %}
+<a href="?page={{ page_obj.next_page_number }}">{{page_obj.next_page_number }}</a>
+{% if paginator.num_pages != page_obj.next_page_number %}
+...
+<a href="?page={{ page_obj.paginator.num_pages }}">{{
+page_obj.paginator.num_pages }}</a>
+{% endif %}
+{% endif %}
+ <p ></p>
+
+{% endblock content %}

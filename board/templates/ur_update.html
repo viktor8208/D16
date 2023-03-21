@@ -1,0 +1,18 @@
+{% extends 'flatpages/default.html' %}
+{% block title %}
+
+{% endblock title %}
+<!-- В контенте на странице мы выводим все товары -->
+{% block content %}
+<p></p>
+<p></p>
+<h1></h1>
+<hr>
+<form action="" method="post">
+    {% csrf_token %}
+    <p>Принять отклик?</p>
+    <input type="submit" value="Принять" />
+</form>
+
+
+{% endblock content %}

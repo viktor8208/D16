@@ -1,0 +1,18 @@
+{% extends 'flatpages/default.html' %}
+{% block title %}
+Объявления
+{% endblock title %}
+<!-- В контенте на странице мы выводим все товары -->
+{% block content %}
+<p></p>
+<p></p>
+<p>Заполните поля и нажмите "сохранить"</p>
+<form action="" method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+    <input type="submit" value="Сохранить" />
+</form>
+
+
+{% endblock content %}

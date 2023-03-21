@@ -1,0 +1,55 @@
+
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+
+{% endblock title %}
+<!-- В контенте на странице мы выводим все товары ur_list-->
+{% block content %}
+ <p > </p>
+<form action="" method="get">
+       {# Переменная, которую мы передали через контекст, может сгенерировать нам форму с полями #}
+       {{ filterset.form.as_p }}
+       {# Добавим кнопку отправки данных формы #}
+       <input type="submit" value="Найти" />
+   </form>
+
+  <p > user_ur</p>
+{% if user_ur %}
+    <p ><h1>Отклики на объявления</h1></p>
+    {%for ur in user_ur%}
+<p style="padding-top: 10px;"> </p>
+        <hr >
+
+
+         <p align="left" > Автор объявления: {{ur.ad.author}}</p>
+         <p align="left" > Объявление: {{ur.ad.title}}</p>
+         <p align="left" > Автор отклика: {{ur.author}}</p>
+         <p align="left">     Отклик  :     {{ur.text}}</p>
+
+{% if ur.status%}
+<p align="left">   <b>Отклик принят</b>  </p>
+{%else%}
+
+<p align="left"> <a  style="ext-transform: uppercase;
+                                font-size: 16px;
+                                margin-right: 60px;
+                                font-weight: 600;
+                                color: #00000;"
+                       href="/ad/ur_list/{{ur.id}}/ur_update">Принять отклик</a> </p>
+{% endif %}
+<p align="right"> <a  style="ext-transform: uppercase;
+                                font-size: 16px;
+                                margin-right: 60px;
+                                font-weight: 600;
+                                color: #00000;"
+                       href="/ad/ur_list/{{ur.id}}/ur_delete">Удалить отклик</a> </p>
+
+
+
+{% endfor %}
+{% else %}
+
+<h2>Отзывов нет!</h2>
+{% endif %}
+{% endblock content %}

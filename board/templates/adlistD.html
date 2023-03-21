@@ -1,0 +1,115 @@
+
+{% extends 'flatpages/default.html' %}
+{% block title %}
+МОИ ОБЪЯВЛЕНИЯ
+{% endblock title %}
+
+{% block content %}
+<p></p>
+<p>МОИ ОБЪЯВЛЕНИЯ</p>
+<p align="right"> <a  style="ext-transform: uppercase;
+                                font-size: 25px;
+                                margin-right: 0px;
+                                padding-top: 70px;
+                                font-weight: 500;
+                                color: #00100;"
+                       href="/ad/create">СОЗДАТЬ ОБЪЯВЛЕНИЕ</a> </p>
+
+{% if ad_user %}
+    <p > </p>
+    {%for ad in ad_user%}
+
+<table>
+	<tbody>
+
+		<tr align="left" style=" font-size: 18px; font-weight: 600;">
+			<td >  Заголовок: {{ad.title}} </td>
+		</tr>
+		<tr align="left" style=" font-size: 18px; font-weight: 600;">
+			<td >  Юзер: {{ad.author.id}} </td>
+		</tr>
+		<tr align="left" style=" font-size: 18px; font-weight: 600;">
+			<td >  Объявление: </td>
+		</tr>
+		<tr align="left" style=" font-size: 18px; ">
+			<td >   {{ad.text| safe}} </td>
+		</tr>
+
+	</tbody>
+</table>
+<p > </p>
+<table >
+	<tbody>
+		<tr align="left" style="width: 300px; font-size: 18px; font-weight: 600;">
+			<td style="width: 300px;"> <a href="/ad/{{ad.id}}">Открыть объявление</a> </td>
+		</tr>
+	</tbody>
+</table>
+<p></p>
+
+<p align="left" style="font-size: 20px; font-weight: 500;">Отклики на ваше объявление</p>
+<p></p>
+{%for ur in us_r%}
+{% if ur.ad.id == ad.id %}
+<table>
+	<tbody>
+		<tr align="left" style="width: 300px; font-size: 19px; font-weight: 400;">
+			<td >  {{ur.text}} </td>
+		</tr>
+	</tbody>
+</table>
+
+<p ></p>
+
+<table>
+	<tbody>
+		<tr align="left" style="width: 300px; font-size: 17px; font-weight: 400">
+			{% if ur.status %}
+			<td style="width: 300px;"> Отклик принят </a> </td>
+			{% else %}
+			<td style="width: 300px;"> <a href="/ad/ur_list/{{ur.id}}/ur_update">Принять отклик </a> </td>
+			{% endif %}
+			<td style="width: 300px;"> <a href="/ad/ur_list/{{ur.id}}/ur_delete">Удалить отклик </a> </td>
+		</tr>
+	</tbody>
+</table>
+	<hr>
+	<p ></p>
+{% endif %}
+{% endfor %}
+
+
+{% if x  %}
+<p align="left" style="font-size: 25px">Откликов на ваше объявление нет.</p>
+
+{% endif %}
+
+<hr size="6">
+
+    {% endfor %}
+{% else %}
+
+<h2>Объявлений нет!</h2>
+{% endif %}
+
+
+{% if page_obj.has_previous %}
+<a href="?page=1">1</a>
+{% if page_obj.previous_page_number != 1 %}
+...
+<a href="?page={{ page_obj.previous_page_number }}">{{page_obj.previous_page_number }}</a>
+{% endif %}
+{% endif %}
+{# Информация о текущей странице #}
+{{ page_obj.number }}
+{# Информация о следующих страницах #}
+{% if page_obj.has_next %}
+<a href="?page={{ page_obj.next_page_number }}">{{page_obj.next_page_number }}</a>
+{% if paginator.num_pages != page_obj.next_page_number %}
+...
+<a href="?page={{ page_obj.paginator.num_pages }}">{{page_obj.paginator.num_pages }}</a>
+{% endif %}
+{% endif %}
+ <p ></p>
+
+{% endblock content %}
